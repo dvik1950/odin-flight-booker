@@ -1,17 +1,28 @@
-<%#= form_tag(flights_path, method: :get) do %>
-  <%#= submit_tag 'Search' %>
-<%# end %>
-
-<%#= form_for(@flight, method :get)  do |f| %>
-
-
-<%= form_for(@flight, url: flights_path, method: :get ) do |f| %>
-
-  <%= select_tag(:to_id, options_for_select(@airports)) %>
-  <%= select_tag(:from_id, options_for_select(@airports)) %>
-  <%= f.select :flight_start, @dates%>
-
-  <%= submit_tag 'Search' %>
-
-<% end %>
+<section class="hero is-info is-medium">
+  <div class="hero-body">
+    <center>
+    <div class="container">
+      <%= form_for(@flight, url: flights_path, method: :get ) do |f| %>
+        <%= f.label :from_id, "From:" %>
+        <div class="select is-multiple">
+          <%= select_tag(:to_id, options_for_select(@airports)) %>
+        </div>
+        <%= f.label :to_id, "To:" %>
+        <div class="select is-multiple">
+          <%= select_tag(:from_id, options_for_select(@airports)) %>
+        </div>
+        <%= f.label :flight_start, "Date:" %>
+        <div class="select is-multiple">
+        <%= f.select :flight_start, @dates%>
+        </div>
+        <%= f.label :num_of_p, "Number of passangers:" %>
+        <div class="select is-multiple">
+          <%= f.select :flight_start, [1,2,3,4]%>
+        </div>
+       <br> <br> <br> <%= submit_tag 'Search', class: "button"%>
+      <% end %>
+    </div>
+    </center>
+  </div>
+</section>
 
