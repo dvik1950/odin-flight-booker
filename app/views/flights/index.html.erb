@@ -1,15 +1,15 @@
-<section class="hero is-info is-medium">
+<section class="hero is-info is-large">
   <div class="hero-body">
     <center>
     <div class="container">
       <%= form_for(@flight, url: flights_path, method: :get ) do |f| %>
         <%= f.label :from_id, "From:" %>
         <div class="select is-multiple">
-          <%= select_tag(:to_id, options_for_select(@airports)) %>
+          <%= select_tag(:from_id, options_for_select(@airports)) %>
         </div>
         <%= f.label :to_id, "To:" %>
         <div class="select is-multiple">
-          <%= select_tag(:from_id, options_for_select(@airports)) %>
+          <%= select_tag(:to_id, options_for_select(@airports)) %>
         </div>
         <%= f.label :flight_start, "Date:" %>
         <div class="select is-multiple">
@@ -17,12 +17,50 @@
         </div>
         <%= f.label :num_of_p, "Number of passangers:" %>
         <div class="select is-multiple">
-          <%= f.select :flight_start, [1,2,3,4]%>
+          <%= select_tag(:num_of_p, options_for_select([1,2,3,4]))%>
         </div>
        <br> <br> <br> <%= submit_tag 'Search', class: "button"%>
       <% end %>
+
+
+
+
     </div>
     </center>
+
+
+<!--        <h1 class="title">  <%#= @tet %> </h1>-->
+
+      <%= @results.length.times do |i| %>
+      <section class="section ress">
+        <div class="container">
+
+
+          <h1 class="subtitle">From:</h1>
+          <p class="title">  <%= @results[i].from_id %> </p>
+
+
+
+          <p class="subtitle">To:</p>
+        <p class="title">  <%= @results[i].to_id %> </p>
+
+
+
+          <p class="subtitle">Date</p>
+        <p class="title"> <%= @results[i].flight_start %> </p>
+
+
+
+          <p class="subtitle">Duration:</p>
+        <p class="title"> <%= @results[i].flight_duration %> </p>
+
+
+
+
+        </div>
+      </section>
+      <% end %>
+
   </div>
 </section>
 
