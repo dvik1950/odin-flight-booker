@@ -5,21 +5,22 @@
       <%= form_for(@flight, url: flights_path, method: :get ) do |f| %>
         <%= f.label :from_id, "From:" %>
         <div class="select is-multiple">
-          <%= select_tag(:from_id, options_for_select(@airports)) %>
+          <%= f.select(:from_id, @airports) %>
         </div>
         <%= f.label :to_id, "To:" %>
         <div class="select is-multiple">
-          <%= select_tag(:to_id, options_for_select(@airports)) %>
+          <%= f.select(:to_id, @airports) %>
         </div>
         <%= f.label :flight_start, "Date:" %>
         <div class="select is-multiple">
         <%= f.select :flight_start, @dates%>
         </div>
-        <%= f.label :num_of_p, "Number of passangers:" %>
+        <%= label :num_of_p, "Number of passangers:" %>
         <div class="select is-multiple">
           <%= select_tag(:num_of_p, options_for_select([1,2,3,4]))%>
         </div>
-       <br> <br> <br> <%= submit_tag 'Search', class: "button"%>
+       <br> <br> <br>
+        <%= submit_tag 'Search', class: "button"%>
       <% end %>
 
 
@@ -27,39 +28,43 @@
 
     </div>
     </center>
+    <br><br>
 
 
-<!--        <h1 class="title">  <%#= @tet %> </h1>-->
+    <%= form_for(:booking, url: new_booking_path, method: :get) do |f| %>
 
-      <%= @results.length.times do |i| %>
-      <section class="section ress">
-        <div class="container">
+    <div class="columns">
+      <%=if ( @results.length.times do |i| %>
 
+        <div class="column">
 
           <h1 class="subtitle">From:</h1>
           <p class="title">  <%= @results[i].from_id %> </p>
 
-
-
           <p class="subtitle">To:</p>
         <p class="title">  <%= @results[i].to_id %> </p>
-
-
 
           <p class="subtitle">Date</p>
         <p class="title"> <%= @results[i].flight_start %> </p>
 
-
-
           <p class="subtitle">Duration:</p>
         <p class="title"> <%= @results[i].flight_duration %> </p>
 
-
-
+          <%= f.radio_button :flight_id, @results[i].id %>
 
         </div>
-      </section>
+
+      <% end) == 0 %>
+      <% render plain: "Sorry, no match :("%>
+        <%= params if Rails.env.development?%>
+        <% end %>
+      <%= f.hidden_field :num_of_p, :value => @num_of_p %>
+    </div>
+
+      <%= f.submit "Pick flight"  , class: "button full-size is-medium" %>
+
       <% end %>
+
 
   </div>
 </section>

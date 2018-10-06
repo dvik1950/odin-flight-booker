@@ -1,0 +1,23 @@
+
+<%= params if Rails.env.development?%>
+
+<center>
+
+<%= form_for @booking do |f| %>
+  <%#= f.hidden_field :flight_id, :value => params[:flight_id] %>
+  <%= @pas_number.to_i.times do |i|%>
+
+    <%= f.fields_for @booking.build_passenger do |p| %>
+    <p class="title">  <%= "Passenger number #{i+1}:"%> </p>
+      <br><br>
+      <%= p.label :name %>
+      <%= p.text_field :name %>
+      <%= p.label :email %>
+      <%= p.email_field :email %>
+      <br><br>
+    <% end %>
+
+  <% end %>
+  <%= f.submit "Make reservation"  , class: "button full-size is-info is-medium" %>
+<% end %>
+</center>
