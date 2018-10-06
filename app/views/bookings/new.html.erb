@@ -4,19 +4,17 @@
 <center>
 
 <%= form_for @booking do |f| %>
-  <%#= f.hidden_field :flight_id, :value => params[:flight_id] %>
-  <%= @pas_number.to_i.times do |i|%>
+  <%= f.hidden_field :flight_id, :value => @flight.id %>
+  <%= f.hidden_field :numb, :value => @pas_number %>
 
-    <%= f.fields_for @booking.build_passenger do |p| %>
-    <p class="title">  <%= "Passenger number #{i+1}:"%> </p>
-      <br><br>
-      <%= p.label :name %>
-      <%= p.text_field :name %>
-      <%= p.label :email %>
-      <%= p.email_field :email %>
-      <br><br>
+    <% @pas_number.times do |i|%>
+
+      <%= f.fields_for :passengers, @booking.passenger do |pas| %>
+    <p class="title">  <%= "Passenger number #{i+1}"%> </p>
+        <%= pas.text_field  "name#{i+1}" %>
+        <%= pas.text_field :"email#{i+1}" %>
+      <%#= pas.text_field  "email" %>
     <% end %>
-
   <% end %>
   <%= f.submit "Make reservation"  , class: "button full-size is-info is-medium" %>
 <% end %>
