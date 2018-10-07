@@ -1,0 +1,21 @@
+<div class="container">
+  <center>
+<h1 class="title">Bookings for:</h1> <br>
+<h1 class="subtitle">Flight from: <%=" \"#{@from_airport.name}\" (#{@from_airport.city}, #{@from_airport.country} )"%></h1>
+<h1 class="subtitle">Flight to: <%=" \"#{@to_airport.name}\" (#{@to_airport.city}, #{@to_airport.country} )"%></h1>
+<h1 class="subtitle">Date: <%= @flight.flight_start%></h1>
+<h1 class="subtitle">Passenger count: <%= pluralize(@pas_number, 'person')%></h1>
+
+    <br><br>
+    <h1 class="title">Passengers:</h1>
+
+<% @passengers.each do |p| %>
+      <div class="box">
+      <p class="subtitle">Name: <%= p.name %></p>
+      <p class="subtitle">Email: <%= p.email %></p>
+      </div>
+<% end %>
+
+  </center>
+
+</div>

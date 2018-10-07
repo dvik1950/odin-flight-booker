@@ -12,10 +12,20 @@ class BookingsController < ApplicationController
   def create
     params[:booking][:numb].to_i.times do |i|
       p = Passenger.create(name: params[:booking][:passengers][:"name#{i+1}"], email: params[:booking][:passengers][:"email#{i+1}"])
-      Booking.create(flight_id: params[:booking][:flight_id], passenger_id: p.id)
+       @b = Booking.create(flight_id: params[:booking][:flight_id], passenger_id: p.id)
     end
-    redirect_to root_url
+    redirect_to booking_path(@b.id)
   end
+
+  def show
+    @booking = Booking.find(params[:id])
+    @flight = Flight.find(@booking.flight_id)
+    @passengers = Passenger.all.where(id: (Booking.all.select(:passenger_id).where(flight_id: @flight.id)))
+    @from_airport = Airport.find(@flight.from_id)
+    @to_airport = Airport.find(@flight.to_id)
+    @pas_number = @passengers.count
+  end
+
 
   # def passenger_params
   #   params.permit(:flight_id, :num_of_p, passenger_attributes: [:name0, :email0, :name1, :email1, :name2, :email2])
