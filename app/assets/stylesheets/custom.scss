@@ -38,3 +38,9 @@ footer {
   padding: 0 !important;
   //margin-top: 2vh !important;
 }
+
+input[type="radio"] {
+  -ms-transform: scale(3.5); /* IE 9 */
+  -webkit-transform: scale(3.5); /* Chrome, Safari, Opera */
+  transform: scale(3.5);
+}

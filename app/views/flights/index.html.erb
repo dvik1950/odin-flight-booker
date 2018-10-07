@@ -51,7 +51,7 @@
           <p class="subtitle">Duration:</p>
         <p class="title"> <%= @results[i].flight_duration.to_s + " hours and #{rand(60)} minutes." %> </p>
 
-          <%= f.radio_button :flight_id, @results[i].id %>
+         <center> <%= f.radio_button :flight_id, @results[i].id %> </center>
 
         </div>
 
