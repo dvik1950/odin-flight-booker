@@ -4,6 +4,8 @@ class BookingsController < ApplicationController
     @pas_number = params[:booking][:num_of_p].to_i
     @booking = Booking.new(flight_id: params[:booking][:flight_id])
     @flight = Flight.find(params[:booking][:flight_id])
+    @from_airport = Airport.find(@flight.from_id)
+    @to_airport = Airport.find(@flight.to_id)
   end
 
 

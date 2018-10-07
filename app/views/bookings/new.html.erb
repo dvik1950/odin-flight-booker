@@ -1,7 +1,11 @@
-
-<%= params if Rails.env.development?%>
-
 <center>
+
+  <h1 class="title">Booking for:</h1>
+  <h1 class="subtitle">Flight from: <%=" \"#{@from_airport.name}\" (#{@from_airport.city}, #{@from_airport.country} )"%></h1>
+  <h1 class="subtitle">Flight to: <%=" \"#{@to_airport.name}\" (#{@to_airport.city}, #{@to_airport.country} )"%></h1>
+  <h1 class="subtitle">Date: <%= @flight.flight_start%></h1>
+  <h1 class="subtitle">Booking for: <%= pluralize(@pas_number, 'person')%></h1>
+
 
 <%= form_for @booking do |f| %>
   <%= f.hidden_field :flight_id, :value => @flight.id %>
@@ -11,9 +15,22 @@
 
       <%= f.fields_for :passengers, @booking.passenger do |pas| %>
     <p class="title">  <%= "Passenger number #{i+1}"%> </p>
-        <%= pas.text_field  "name#{i+1}" %>
-        <%= pas.text_field :"email#{i+1}" %>
-      <%#= pas.text_field  "email" %>
+
+
+        <div class="field">
+          <%= pas.label :name, class: "label" %>
+          <div class="control">
+            <%= pas.text_field  "name#{i+1}", class: "input" %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= pas.label :email, class: "label" %>
+          <div class="control">
+            <%= pas.email_field :"email#{i+1}", class: "input" %>
+          </div>
+        </div>
+
     <% end %>
   <% end %>
   <%= f.submit "Make reservation"  , class: "button full-size is-info is-medium" %>

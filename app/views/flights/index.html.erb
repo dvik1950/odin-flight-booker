@@ -1,5 +1,5 @@
-<section class="hero is-info is-large">
-  <div class="hero-body">
+<section class="hero is-info is-small">
+  <div class="hero-body bpic">
     <center>
     <div class="container">
       <%= form_for(@flight, url: flights_path, method: :get ) do |f| %>
@@ -30,39 +30,43 @@
     </center>
     <br><br>
 
-
+    <% unless @results.nil? %>
     <%= form_for(:booking, url: new_booking_path, method: :get) do |f| %>
 
     <div class="columns">
       <%if ( @results.length.times do |i| %>
-
+       <% a = Airport.find(@results[i].from_id) %>
+       <% b = Airport.find(@results[i].to_id) %>
         <div class="column">
 
           <h1 class="subtitle">From:</h1>
-          <p class="title">  <%= @results[i].from_id %> </p>
+          <p class="title">  <%= a.name + " (#{a.city}, #{a.country})" %> </p>
 
           <p class="subtitle">To:</p>
-        <p class="title">  <%= @results[i].to_id %> </p>
+          <p class="title">  <%= b.name + " (#{b.city}, #{b.country})" %> </p>
 
-          <p class="subtitle">Date</p>
+          <p class="subtitle">Flight departure date:</p>
         <p class="title"> <%= @results[i].flight_start %> </p>
 
           <p class="subtitle">Duration:</p>
-        <p class="title"> <%= @results[i].flight_duration %> </p>
+        <p class="title"> <%= @results[i].flight_duration.to_s + " hours and #{rand(60)} minutes." %> </p>
 
           <%= f.radio_button :flight_id, @results[i].id %>
 
         </div>
 
       <% end) == 0 %>
-      <% render plain: "Sorry, no match :("%>
-        <%= params if Rails.env.development?%>
+        <div class="notification is-warning">
+      <%= render plain: "Sorry, but no flight is available for the given criteria."%>
+        </div>
+
         <% end %>
       <%= f.hidden_field :num_of_p, :value => @num_of_p %>
     </div>
-
+      <% unless @results.empty? %>
       <%= f.submit "Pick flight"  , class: "button full-size is-medium" %>
-
+      <% end %>
+      <% end %>
       <% end %>
 
 
