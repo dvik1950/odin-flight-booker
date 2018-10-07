@@ -17,8 +17,12 @@
   Airport.create(name: "São Paulo–Guarulhos", city: "	Guarulhos", country: "Brazil" )
 
 
-100.times do |i|
-  dates = [Date.new(2018, 10, 10), Date.new(2018, 11, 10), Date.new(2018, 12, 10)]
+1000.times do |i|
+  dates = [Date.new(2018, 10, 10), Date.new(2018, 11, 10), Date.new(2018, 12, 10), Date.new(2019, 1, 10), Date.new(2019, 2, 10)]
   r = rand(7)
-  Flight.create(from_id: r, to_id: r + 1, flight_duration: (rand(5)+1), flight_start: dates[rand(2)])
+  m = rand(7)
+  until r != m
+    m = rand(7)
+  end
+  Flight.create(from_id: r, to_id: m, flight_duration: (rand(5)), flight_start: dates[rand(5)])
 end
