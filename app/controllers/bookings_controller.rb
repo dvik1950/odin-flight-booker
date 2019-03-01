@@ -13,6 +13,7 @@ class BookingsController < ApplicationController
     params[:booking][:numb].to_i.times do |i|
       p = Passenger.create(name: params[:booking][:passengers][:"name#{i+1}"], email: params[:booking][:passengers][:"email#{i+1}"])
        @b = Booking.create(flight_id: params[:booking][:flight_id], passenger_id: p.id)
+      PassengerMailer.with(p: p).thank_you.deliver_now
     end
     redirect_to booking_path(@b.id)
   end
